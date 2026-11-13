@@ -1,20 +1,54 @@
 // ==UserScript==
-// @name           Telegram Media Batch Downloader
-// @namespace      https://github.com/Alfa-Dev404
-// @license        MIT
-// @version        1.0.0
-// @description    Download all accessible Telegram attachments into a chosen folder, with exact size checks, captions and resumable jobs.
-// @author         Alfa-Dev404 (based on the original by OsoCosmico)
-// @homepageURL    https://github.com/Alfa-Dev404/telegram-batch-downloader
-// @supportURL     https://github.com/Alfa-Dev404/telegram-batch-downloader/issues
-// @downloadURL    https://raw.githubusercontent.com/Alfa-Dev404/telegram-batch-downloader/main/telegram-batch-downloader.user.js
-// @updateURL      https://raw.githubusercontent.com/Alfa-Dev404/telegram-batch-downloader/main/telegram-batch-downloader.user.js
-// @match          https://web.telegram.org/*
-// @grant          unsafeWindow
-// @grant          GM_addStyle
-// @grant          GM_getValue
-// @grant          GM_setValue
-// @run-at         document-start
+// @name              Telegram Media Batch Downloader
+// @name:ar           أداة تنزيل وسائط تيليجرام دفعة واحدة
+// @name:de           Telegram Medien-Massendownloader
+// @name:es           Descargador masivo de medios de Telegram
+// @name:fa           دانلودر گروهی رسانه‌های تلگرام
+// @name:fr           Téléchargeur de médias Telegram par lots
+// @name:hi           टेलीग्राम मीडिया बैच डाउनलोडर
+// @name:id           Pengunduh Massal Media Telegram
+// @name:it           Downloader multiplo di media Telegram
+// @name:ja           Telegram メディア一括ダウンローダー
+// @name:ko           텔레그램 미디어 일괄 다운로더
+// @name:pt-BR        Baixador em massa de mídia do Telegram
+// @name:ru           Пакетный загрузчик медиа из Telegram
+// @name:tr           Telegram Toplu Medya İndirici
+// @name:uk           Пакетний завантажувач медіа з Telegram
+// @name:vi           Trình tải hàng loạt phương tiện Telegram
+// @name:zh-CN        Telegram 媒体批量下载器
+// @name:zh-TW        Telegram 媒體批次下載器
+// @namespace         https://github.com/Alfa-Dev404
+// @license           MIT
+// @version           1.0.1
+// @description       Download all accessible Telegram attachments into a chosen folder, with exact size checks, captions and resumable jobs.
+// @description:ar    نزّل جميع مرفقات تيليجرام المتاحة إلى مجلد تختاره، مع تحقق دقيق من الحجم وحفظ التعليقات واستئناف التنزيلات.
+// @description:de    Lädt alle zugänglichen Telegram-Anhänge in einen gewählten Ordner, mit exakter Größenprüfung, Bildunterschriften und fortsetzbaren Downloads.
+// @description:es    Descarga todos los archivos adjuntos accesibles de Telegram en una carpeta, con verificación exacta del tamaño, pies de foto y descargas reanudables.
+// @description:fa    همه پیوست‌های در دسترس تلگرام را در پوشه دلخواه دانلود کنید؛ با بررسی دقیق حجم، ذخیره کپشن‌ها و ادامه دانلود.
+// @description:fr    Téléchargez toutes les pièces jointes Telegram accessibles dans un dossier de votre choix, avec vérification exacte de la taille, légendes et reprise des téléchargements.
+// @description:hi    टेलीग्राम की सभी उपलब्ध फ़ाइलें अपने चुने हुए फ़ोल्डर में डाउनलोड करें, सटीक साइज़ जाँच, कैप्शन और फिर से शुरू होने वाले डाउनलोड के साथ।
+// @description:id    Unduh semua lampiran Telegram yang dapat diakses ke folder pilihan, dengan pemeriksaan ukuran yang akurat, keterangan, dan unduhan yang bisa dilanjutkan.
+// @description:it    Scarica tutti gli allegati di Telegram accessibili in una cartella a scelta, con controllo esatto delle dimensioni, didascalie e download ripristinabili.
+// @description:ja    アクセスできる Telegram の添付ファイルをすべて指定フォルダーに保存。サイズの厳密な確認、キャプション保存、再開可能なダウンロードに対応。
+// @description:ko    접근 가능한 텔레그램 첨부 파일을 선택한 폴더에 모두 저장합니다. 정확한 크기 확인, 캡션 저장, 이어받기를 지원합니다.
+// @description:pt-BR Baixe todos os anexos acessíveis do Telegram para uma pasta escolhida, com verificação exata de tamanho, legendas e downloads retomáveis.
+// @description:ru    Скачивайте все доступные вложения Telegram в выбранную папку: точная проверка размера, подписи и возобновляемые загрузки.
+// @description:tr    Erişilebilen tüm Telegram eklerini seçtiğiniz klasöre indirin; birebir boyut kontrolü, açıklamalar ve kaldığı yerden devam eden indirmeler.
+// @description:uk    Завантажуйте всі доступні вкладення Telegram у вибрану папку: точна перевірка розміру, підписи та відновлювані завантаження.
+// @description:vi    Tải tất cả tệp đính kèm Telegram có thể truy cập vào thư mục bạn chọn, kiểm tra chính xác dung lượng, lưu chú thích và tải tiếp khi bị gián đoạn.
+// @description:zh-CN 将 Telegram 中所有可访问的附件下载到所选文件夹，支持精确大小校验、保存说明文字和断点续传。
+// @description:zh-TW 將 Telegram 中所有可存取的附件下載到所選資料夾，支援精確大小檢查、儲存說明文字與斷點續傳。
+// @author            Alfa-Dev404 (based on the original by OsoCosmico)
+// @homepageURL       https://github.com/Alfa-Dev404/telegram-batch-downloader
+// @supportURL        https://github.com/Alfa-Dev404/telegram-batch-downloader/issues
+// @downloadURL       https://raw.githubusercontent.com/Alfa-Dev404/telegram-batch-downloader/main/telegram-batch-downloader.user.js
+// @updateURL         https://raw.githubusercontent.com/Alfa-Dev404/telegram-batch-downloader/main/telegram-batch-downloader.user.js
+// @match             https://web.telegram.org/*
+// @grant             unsafeWindow
+// @grant             GM_addStyle
+// @grant             GM_getValue
+// @grant             GM_setValue
+// @run-at            document-start
 // @noframes
 // ==/UserScript==
 
@@ -23,7 +57,7 @@
     /* global cloneInto -- Firefox only; see toPage */
 
     const page = typeof unsafeWindow === 'undefined' ? globalThis : unsafeWindow;
-    const VERSION = '1.0.0';
+    const VERSION = '1.0.1';
     const JOB_VERSION = 10;
     const CFG = {
         concurrency: 3,
