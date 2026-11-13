@@ -1,0 +1,73 @@
+name: Bug report
+description: Something doesn't download, verify or display the way it should.
+labels: [bug]
+body:
+    - type: markdown
+      attributes:
+          value: |
+              Thanks for reporting! Please **don't paste chat names, file names, links or "Copy job JSON"** here. This issue is public.
+              "Copy debug info (safe to share)" in the panel's **More tools** is made for this and leaves all of that out.
+    - type: textarea
+      id: what
+      attributes:
+          label: What happened?
+          description: What you did, what you expected, and what happened instead.
+          placeholder: |
+              1. Opened a channel and picked a folder
+              2. Clicked "Scan & download all" with "Videos"
+              3. Expected …, but …
+      validations:
+          required: true
+    - type: textarea
+      id: debug
+      attributes:
+          label: Debug info
+          description: Panel → More tools → **Copy debug info (safe to share)**, then paste it here.
+          render: json
+      validations:
+          required: true
+    - type: textarea
+      id: log
+      attributes:
+          label: Panel log
+          description: The last lines from the log at the bottom of the panel. Remove any file or chat names first.
+          render: text
+    - type: dropdown
+      id: browser
+      attributes:
+          label: Browser
+          options: [Chrome, Edge, Brave, Opera, Firefox, Safari, Other]
+      validations:
+          required: true
+    - type: input
+      id: browser-version
+      attributes:
+          label: Browser version
+          placeholder: e.g. 142.0.7444.59
+    - type: dropdown
+      id: manager
+      attributes:
+          label: Userscript manager
+          options: [Tampermonkey, Violentmonkey, Other]
+      validations:
+          required: true
+    - type: input
+      id: manager-version
+      attributes:
+          label: Userscript manager version
+    - type: dropdown
+      id: mode
+      attributes:
+          label: Where were files being saved?
+          options: [A picked folder, Browser downloads (no folder), Not sure]
+    - type: checkboxes
+      id: checks
+      attributes:
+          label: Before submitting
+          options:
+              - label: I'm on Telegram Web **K** (the address contains `/k/`).
+                required: true
+              - label: I'm on the latest version of the script.
+                required: true
+              - label: I removed chat names, file names and links from everything above.
+                required: true

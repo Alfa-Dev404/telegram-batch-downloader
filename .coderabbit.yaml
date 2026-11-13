@@ -1,0 +1,42 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: en-US
+
+reviews:
+    profile: assertive
+    request_changes_workflow: false
+    high_level_summary: true
+    review_status: true
+    poem: false
+    in_progress_fortune: false
+    sequence_diagrams: false
+    auto_review:
+        enabled: true
+        drafts: false
+        base_branches: ['main']
+    path_filters:
+        - '!docs/*.gif'
+    path_instructions:
+        - path: 'telegram-batch-downloader.user.js'
+          instructions: |
+              Userscript running inside the user's logged-in Telegram Web K tab with File System Access to a folder.
+              Review with these priorities:
+              1. Security: treat every value from Telegram (file names, captions, MIME types, sizes) as untrusted.
+                 Flag path traversal, HTML injection, new network channels (fetch, XHR, WebSocket, GM_xmlhttpRequest),
+                 dynamic code (eval, new Function), new @grant/@require/@connect lines, and anything that exposes the API,
+                 the folder handle or account details to the page outside CFG.debug.
+              2. Data safety: a failed or cancelled download must never leave a partial or empty file, and must never
+                 overwrite a file the user already had. Downloads must stay byte-exact.
+              3. Reliability against Telegram: FLOOD_WAIT handling, timeouts, account switches, expired file references.
+              4. Settings must keep going through validateConfig/RANGES; no unchecked user input reaches CFG.
+              The script is intentionally a single file with no build step and no dependencies; don't suggest splitting it.
+        - path: 'test/**'
+          instructions: |
+              Tests use node:test with a fake Telegram API and an in-memory folder. Check that new behaviour in the
+              download engine has a test, and that tests would actually fail if the behaviour broke.
+        - path: '.github/workflows/**'
+          instructions: |
+              Actions must stay pinned to full commit SHAs with a version comment, use least-privilege permissions,
+              and keep persist-credentials: false on checkout.
+
+chat:
+    auto_reply: true
