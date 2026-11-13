@@ -97,6 +97,8 @@ npx prettier@3.3.3 --write .     # formatting
 -   `test/download.test.js` runs the real download engine against a fake Telegram API and an in-memory folder: parallel chunks, expired file references, rate limits, cancel, account switches and name clashes.
 -   `test/security.test.js` feeds in hostile file names and HTML, checks the debug info stays anonymous, and fails if the script gains new permissions, network calls, dynamic code or `innerHTML` built from data.
 
+Planned features are listed in [ROADMAP.md](ROADMAP.md).
+
 Every push and pull request runs the tests, a formatting check and [CodeQL](https://codeql.github.com/), and pull requests get a [CodeRabbit](https://coderabbit.ai/) review. See [CONTRIBUTING.md](CONTRIBUTING.md), and report security problems privately as described in [SECURITY.md](SECURITY.md).
 
 ## Credits
