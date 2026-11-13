@@ -3,6 +3,7 @@
 [![CI](https://github.com/Alfa-Dev404/telegram-batch-downloader/actions/workflows/ci.yml/badge.svg)](https://github.com/Alfa-Dev404/telegram-batch-downloader/actions/workflows/ci.yml)
 [![CodeQL](https://github.com/Alfa-Dev404/telegram-batch-downloader/actions/workflows/codeql.yml/badge.svg)](https://github.com/Alfa-Dev404/telegram-batch-downloader/actions/workflows/codeql.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Greasy Fork](https://img.shields.io/greasyfork/v/605258?label=Greasy%20Fork)](https://greasyfork.org/en/scripts/605258-telegram-media-batch-downloader)
 
 A userscript for [Telegram Web K](https://web.telegram.org/k/) that saves a chat's attachments straight into a folder on your computer: one file, a selection, or the whole history. It checks every file against the exact size Telegram reports, writes the captions next to the files, and picks up where it left off if you close the tab.
 
@@ -31,7 +32,7 @@ Based on [Telegram Web - Media Batch Downloader](https://greasyfork.org/en/scrip
 ## Install
 
 1. Install [Tampermonkey](https://www.tampermonkey.net/) (or Violentmonkey).
-2. Open **[telegram-batch-downloader.user.js](https://raw.githubusercontent.com/Alfa-Dev404/telegram-batch-downloader/main/telegram-batch-downloader.user.js)** and click **Install**.
+2. Install the script from **[Greasy Fork](https://greasyfork.org/en/scripts/605258-telegram-media-batch-downloader)**, or straight from this repo: **[telegram-batch-downloader.user.js](https://raw.githubusercontent.com/Alfa-Dev404/telegram-batch-downloader/main/telegram-batch-downloader.user.js)**. Both stay up to date automatically.
 3. Open [web.telegram.org/k](https://web.telegram.org/k/). A round ↓ button appears at the bottom right.
 
 Saving into a folder needs a desktop browser with the File System Access API: **Chrome, Edge, Brave or Opera**. Firefox and mobile browsers can still save single files (up to 512 MB by default) through normal downloads.
