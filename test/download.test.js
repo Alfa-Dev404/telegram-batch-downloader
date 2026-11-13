@@ -60,7 +60,7 @@ function fakeFolder(initial = {}) {
 // A channel with one document. `faults` lets a test break specific calls.
 function fakeTelegram(faults = {}) {
     const content = Uint8Array.from({ length: SIZE }, (_, i) => (i * 31 + 7) % 251);
-    const calls = { getMessages: 0, getFile: [] };
+    const calls = { getMessages: 0, getFile: [], attempts: [] };
     let self = '42';
     const message = (size = SIZE) => ({
         _: 'message',
@@ -97,6 +97,7 @@ function fakeTelegram(faults = {}) {
                     if (method !== 'upload.getFile') throw new Error(`unexpected ${method}`);
                     const { offset, limit } = params;
                     calls.getFile.push(offset);
+                    calls.attempts.push({ offset, at: Date.now() });
                     calls.inFlight = (calls.inFlight || 0) + 1;
                     calls.maxInFlight = Math.max(calls.maxInFlight || 0, calls.inFlight);
                     const fault = faults.onChunk?.(offset, calls.getFile.filter((o) => o === offset).length);
@@ -133,7 +134,7 @@ test('downloads every chunk in parallel and writes a byte-exact file', async () 
     assert.equal(entry.status, 'ok');
     assert.deepEqual(folder.files.get('notes.pdf'), content);
     assert.equal(calls.getFile.length, 6);
-    assert.notDeepEqual(calls.getFile, [...calls.getFile].sort((a, b) => a - b).reverse(), 'requests should overlap');
+    assert.ok(calls.maxInFlight > 1, `chunk requests should overlap, max in flight was ${calls.maxInFlight}`);
 });
 
 test('an expired file reference is refreshed once and the download continues', async () => {
@@ -146,13 +147,17 @@ test('an expired file reference is refreshed once and the download continues', a
     assert.equal(calls.getMessages, 2, 'initial lookup plus one refresh');
 });
 
-test('a FLOOD_WAIT pauses and then completes', async () => {
-    const { ctx, entry, content } = fakeTelegram({
+test('a FLOOD_WAIT pauses before retrying and then completes', async () => {
+    // FLOOD_WAIT_N means "wait N seconds"; the script adds one second of margin, so this waits about 1s.
+    const { ctx, entry, content, calls } = fakeTelegram({
         onChunk: (offset, attempt) => (offset === CHUNK && attempt === 1 ? { type: 'FLOOD_WAIT_0' } : null),
     });
     T.CFG.retries = 1;
     const folder = fakeFolder();
     await T.downloadEntry(entry, ctx, folder, new Set());
+    const [first, retry] = calls.attempts.filter((a) => a.offset === CHUNK);
+    assert.ok(retry, 'the rate-limited chunk was retried');
+    assert.ok(retry.at - first.at >= 950, `retried after ${retry.at - first.at}ms, expected about 1000ms`);
     assert.deepEqual(folder.files.get('notes.pdf'), content);
 });
 
