@@ -135,6 +135,16 @@ test('the userscript header asks for nothing beyond what it needs', () => {
         );
 });
 
+test('every translated name has a matching translated description', () => {
+    const locales = (tag) =>
+        [...HEADER.matchAll(new RegExp(`@${tag}:(\\S+)\\s+(.+)`, 'g'))].map((m) => [m[1], m[2].trim()]);
+    const names = Object.fromEntries(locales('name'));
+    const descriptions = Object.fromEntries(locales('description'));
+    assert.deepEqual(Object.keys(names).sort(), Object.keys(descriptions).sort());
+    for (const [locale, text] of [...Object.entries(names), ...Object.entries(descriptions)])
+        assert.ok(text.length > 3, locale);
+});
+
 test('the code has no dynamic code execution or extra network channels', () => {
     const banned = [
         /\beval\s*\(/,
