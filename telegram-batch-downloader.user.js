@@ -19,7 +19,7 @@
 // @name:zh-TW        Telegram 媒體批次下載器
 // @namespace         https://github.com/Alfa-Dev404
 // @license           MIT
-// @version           1.0.1
+// @version           1.0.2
 // @description       Download all accessible Telegram attachments into a chosen folder, with exact size checks, captions and resumable jobs.
 // @description:ar    نزّل جميع مرفقات تيليجرام المتاحة إلى مجلد تختاره، مع تحقق دقيق من الحجم وحفظ التعليقات واستئناف التنزيلات.
 // @description:de    Lädt alle zugänglichen Telegram-Anhänge in einen gewählten Ordner, mit exakter Größenprüfung, Bildunterschriften und fortsetzbaren Downloads.
@@ -41,6 +41,7 @@
 // @author            Alfa-Dev404 (based on the original by OsoCosmico)
 // @homepageURL       https://github.com/Alfa-Dev404/telegram-batch-downloader
 // @supportURL        https://github.com/Alfa-Dev404/telegram-batch-downloader/issues
+// @contributionURL   https://ko-fi.com/alfadev404
 // @downloadURL       https://raw.githubusercontent.com/Alfa-Dev404/telegram-batch-downloader/main/telegram-batch-downloader.user.js
 // @updateURL         https://raw.githubusercontent.com/Alfa-Dev404/telegram-batch-downloader/main/telegram-batch-downloader.user.js
 // @match             https://web.telegram.org/*
@@ -57,7 +58,7 @@
     /* global cloneInto -- Firefox only; see toPage */
 
     const page = typeof unsafeWindow === 'undefined' ? globalThis : unsafeWindow;
-    const VERSION = '1.0.1';
+    const VERSION = '1.0.2';
     const JOB_VERSION = 10;
     const CFG = {
         concurrency: 3,

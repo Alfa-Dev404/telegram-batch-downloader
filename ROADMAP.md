@@ -17,5 +17,6 @@ Planned work, roughly in priority order. Ideas and pull requests for any of thes
 
 ## Done
 
+-   1.0.2: Ko-fi donation link on Greasy Fork and GitHub.
 -   1.0.1: name and description translated into 17 languages; Greasy Fork listing with automatic updates.
 -   1.0.0: whole-chat, selection and single-file downloads; folder writes; resume; exact size checks; captions; settings panel; theme support; tests, CI and CodeQL.
